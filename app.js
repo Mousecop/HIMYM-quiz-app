@@ -1,6 +1,7 @@
 var quizState = {
   currentQuestion: -1,
   userAnswers: [],
+  score: 0,
   answerDisplay: false,
   questions: [
     {
@@ -39,53 +40,78 @@ function welcomeScreen(state, element) {
 }
 
 function submitAnswer(state, index) {
+  if (index === state.questions[index].correctAnswer){
+    state.score+=1;
+  }
   state.userAnswers.push(index);
-  console.log(quizState.userAnswers);
+    // console.log(quizState.userAnswers);
 }
 
 function startQuiz(state) {
-  state.score = 0;
+  state.userAnswers = [];
   state.currentQuestion = 0;
 }
 
 
-function checkAnswer(state, index) {
-  if (state.userAnswers[state.userAnswers.length - 1] == state.questions[index].correctAnswer) {
-    displayCorrectAnswer(state, $('.answers'));
-  } else {
-    displayWrongAnswer(state, $('.answers'));
-  }
-}
-function displayCorrectAnswer(state, element) {
+// function checkAnswer(state, index) {
+//   if (state.userAnswers[state.userAnswers.length - 1] == state.questions[index].correctAnswer) {
+//     return state.score+=1;
+//     displayCorrectAnswerMessage(state, $('.answers'));
+//   } else {
+//     displayWrongAnswerMessage(state, $('.answers'));
+//   }
+// }
+function displayCorrectAnswerMessage(state, element) {
   var answerHtml = "<p>That was Legend....wait for it.... dary. LEGENDARY!</p>"
   element.html(answerHtml);
 }
-function displayWrongAnswer(state, element) {
+function displayWrongAnswerMessage(state, element) {
   var answerHtml = "<p>You are not worthy</p>";
   element.html(answerHtml);
 }
 
+function nextQuestion(state) {
+  state.currentQuestion++;
+}
+// function displayScore(state) {
+//   console.log();
+// }
+//
+// displayScore(quizState);
 
-function renderQuestions(state, index) {
-  
+
+
+function questionsTemplate(state, element) {
+  var i = state.currentQuestion;
+  var questionsHtml = "<h3>Question " + (i+1) + " / " + state.questions.length + "</h3>" +
+    '<p>Your score is: ' + state.score + '</p>' +
+      '<p>' + state.questions[i].questionText + '</p>' +
+      '<ul>' +
+        '<li><input type="radio" name="answer">' + state.questions[i].choices[0] + '</input></li>' +
+        '<li><input type="radio" name="answer">' + state.questions[i].choices[1] + '</input></li>' +
+        '<li><input type="radio" name="answer">' + state.questions[i].choices[2] + '</input></li>' +
+        '<li><input type="radio" name="answer">' + state.questions[i].choices[3] + '</input></li>' +
+      '</ul>' +
+      '<button type="submit" class="submitButton">Submit</button>';
+  element.html(questionsHtml);
 }
 
 
+// nextQuestion(quizState);
+// questionsTemplate(quizState, $('.quiz'));
 
 
 
 
-
-
-$(function eventListeners() {
-  welcomeScreen(quizState, $('.quiz'));
-  $('.quiz').on('click', '.welcomeButton', function(event) {
-
-  });
-});
-
+// $(function eventListeners() {
+//   welcomeScreen(quizState, $('.quiz'));
+//   $('.quiz').on('click', '.welcomeButton', function(event) {
+//
+//   });
+// });
 
 
 
-// submitAnswer(quizState, 0);
+//
+ submitAnswer(quizState, 0);
 // checkAnswer(quizState, 0);
