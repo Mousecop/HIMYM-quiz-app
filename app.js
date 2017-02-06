@@ -1,4 +1,7 @@
 var quizState = {
+  currentQuestion: -1,
+  userAnswers: [],
+  answerDisplay: false,
   questions: [
     {
       questionText: "Who plays Barney Stinson?",
@@ -28,5 +31,11 @@ var quizState = {
   ]
 };
 
+function submitAnswer(state, index) {
+  state.userAnswers.push(index);
+}
 
-console.log(quizState.questions[0]);
+function startQuiz(state) {
+  state.score = 0;
+  state.currentQuestion = 0;
+}
