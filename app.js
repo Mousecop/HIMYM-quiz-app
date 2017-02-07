@@ -146,10 +146,6 @@ $(function eventListeners() {
 
 
 
-
-
-//  questionsTemplate(quizState, $('.questions'));
-
 /*
 1) Need to get the ids of the radio buttons that the user clicks and submits on
   http://stackoverflow.com/questions/17636043/cannot-add-click-events-to-list-items
