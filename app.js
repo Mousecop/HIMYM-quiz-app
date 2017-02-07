@@ -1,5 +1,5 @@
 var quizState = {
-  currentQuestion:-1,
+  currentQuestion: -1,
   userAnswers: [],
   score: 0,
   answerDisplay: false, // might not need
@@ -40,21 +40,21 @@ function welcomeScreen(state, element) {
 }
 
 function submitAnswer(state, index) {
-  // var userIndex = $('input[name="answer"]:checked').attr('id');
-  if (index == state.questions[index].correctAnswer){
+  var k = state.currentQuestion - 1 ;
+  if (index == state.questions[k].correctAnswer){
     state.score+=1;
     displayCorrectAnswerMessage(state, $('.answers'));
-    // console.log(state.score);
   } else {
     displayWrongAnswerMessage(state, $('.answers'));
   }
+  console.log(k);
   state.userAnswers.push(index);
-  // console.log(quizState.userAnswers);
 }
 
-function startQuiz(state) {
+function restartQuiz(state) {
   state.userAnswers = [];
   state.currentQuestion = -1;
+  state.score = 0;
 }
 
 function displayCorrectAnswerMessage(state, element) {
@@ -77,7 +77,7 @@ function questionsTemplate(state, element) {
   var questionsHtml = "<h3>Question " + (i+1) + " / " + state.questions.length + "</h3>" +
     '<p>Your score is: ' + state.score + '</p>' +
       '<p>' + state.questions[i].questionText + '</p>' +
-      '<form required>' +
+      '<form>' +
       '<ul>' +
         '<li><input type="radio" name="answer" id="0">' + state.questions[i].choices[0] + '</input></li>' +
         '<li><input type="radio" name="answer" id="1">' + state.questions[i].choices[1] + '</input></li>' +
@@ -89,34 +89,58 @@ function questionsTemplate(state, element) {
   element.html(questionsHtml);
 }
 
+function resultsTemplate(state, element) {
+  var resutlsHtml = '<h1>Here are your results!</h1>' +
+    '<p>You got ' + state.score + ' out of ' + state.questions.length +
+    '<button type="button" class="restartButton">Play Again!</button>';
+    element.html(resutlsHtml);
+}
+
 $(function eventListeners() {
   if (quizState.currentQuestion === -1) {
     welcomeScreen(quizState, $('.quiz'));
   } else if (quizState.currentQuestion >= 0) {
     questionsTemplate(quizState, $('.questions'));
+  } else if (quizState.currentQuestion >= 5) {
+    resultsTemplate(quizState, $('.results'));
   }
   $('.quiz').on('click', '.welcomeButton', function(event) {
     $('.quiz').hide();
+    $('.questions').show();
     nextQuestion(quizState);
-    console.log(quizState.currentQuestion);
     questionsTemplate(quizState, $('.questions'));
   });
 
   $('.questions').on('click', '.submitButton', function(event) {
     var userIndex = $('input[name="answer"]:checked').attr('id');
-    $('.questions').hide();
-    nextQuestion(quizState);
-    submitAnswer(quizState, userIndex);
-    $('.answers').show();
-    console.log(quizState.currentQuestion);
+    if ($('input[name="answer"]:checked').length > 0) {
+      $('.questions').hide();
+      nextQuestion(quizState);
+      submitAnswer(quizState, parseInt(userIndex));
+      $('.answers').show();
+    } else {
+      alert("Don't be that person.. ");
+    }
 
   });
 
   $('.answers').on('click', '.nextButton', function(event) {
-    $('.questions').show();
-    $('.answers').hide();
-    console.log(quizState.currentQuestion);
-    questionsTemplate(quizState, $('.questions'));
+    if (quizState.currentQuestion >= 5) {
+      resultsTemplate(quizState, $('.results'));
+      $('.answers').hide();
+    } else {
+      $('.questions').show();
+      $('.answers').hide();
+      questionsTemplate(quizState, $('.questions'));
+    }
+  });
+
+  $('.results').on('click', '.restartButton', function(event) {
+    restartQuiz(quizState);
+    console.log(quizState.userAnswers);
+    $('.results').hide();
+    $('.quiz').show();
+    welcomeScreen(quizState, $('.quiz'));
   });
 });
 
