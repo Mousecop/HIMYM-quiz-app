@@ -33,9 +33,8 @@ var quizState = {
 };
 
 function welcomeScreen(state, element) {
-  var welcomeHtml =  '<h1>Quiz App</h1>' +
-          '<p>How well do you know How I Met Your Mother?</p>' +
-          '<button type="button" class="welcomeButton">Start Here</button>';
+  var welcomeHtml =  '<h1 class="heading">Quiz App</h1>' +
+          '<button type="button" class="welcomeButton blueButton">Start Here</button>';
   element.html(welcomeHtml);
 }
 
@@ -58,13 +57,13 @@ function restartQuiz(state) {
 }
 
 function displayCorrectAnswerMessage(state, element) {
-  var answerHtml = "<h1>That was Legend....wait for it.... dary. LEGENDARY! -Barney Stinson</h1>" +
-    '<button type="button" class="nextButton">Next</button>';
+  var answerHtml = "<p>That was Legend....wait for it.... dary. LEGENDARY! -Barney Stinson</p>" +
+    '<button type="button" class="nextButton blueButton">Next</button>';
   element.html(answerHtml);
 }
 function displayWrongAnswerMessage(state, element) {
-  var answerHtml = "<h1>You choose.... Poorly.</h1>" +
-    '<button type="button" class="nextButton">Next</button>';
+  var answerHtml = "<p>You choose.... Poorly.</p>" +
+    '<button type="button" class="nextButton blueButton">Next</button>';
   element.html(answerHtml);
 }
 
@@ -74,25 +73,25 @@ function nextQuestion(state) {
 
 function questionsTemplate(state, element) {
   var i = state.currentQuestion;
-  var questionsHtml = "<h3>Question " + (i+1) + " / " + state.questions.length + "</h3>" +
-    '<p>Your score is: ' + state.score + '</p>' +
-      '<p>' + state.questions[i].questionText + '</p>' +
+  var questionsHtml = '<p class="question-counter">Question ' + (i+1) + '/' + state.questions.length + '</p>' +
+    '<p class="score-display">Your score is: ' + state.score + '</p>' +
+      '<p class="content-text">' + state.questions[i].questionText + '</p>' +
       '<form>' +
-      '<ul>' +
+      '<ul class="content-text">' +
         '<li><label><input type="radio" name="answer" id="0">' + state.questions[i].choices[0] + '</input></label></li>' +
         '<li><label><input type="radio" name="answer" id="1">' + state.questions[i].choices[1] + '</input></label></li>' +
         '<li><label><input type="radio" name="answer" id="2">' + state.questions[i].choices[2] + '</input></label></li>' +
         '<li><label><input type="radio" name="answer" id="3">' + state.questions[i].choices[3] + '</input></label></li>' +
       '</ul>' +
       '</form>' +
-      '<button type="submit" class="submitButton">Submit</button>';
+      '<button type="submit" class="submitButton blueButton">Submit</button>';
   element.html(questionsHtml);
 }
 
 function resultsTemplate(state, element) {
-  var resutlsHtml = '<h1>Here are your results!</h1>' +
-    '<p>You got ' + state.score + ' out of ' + state.questions.length +
-    '<button type="button" class="restartButton">Play Again!</button>';
+  var resutlsHtml = '<h2>Here are your results!</h2>' +
+    '<p>You got ' + state.score + ' out of ' + state.questions.length + " " + '</p>' +
+    '<button type="button" class="restartButton blueButton">Play Again!</button>';
     element.html(resutlsHtml);
 }
 
