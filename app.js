@@ -1,5 +1,5 @@
 var quizState = {
-  currentQuestion: -1,
+  currentQuestion: 0,
   userAnswers: [],
   score: 0,
   answerDisplay: false,
@@ -85,12 +85,12 @@ function questionsTemplate(state, element) {
   var i = state.currentQuestion;
   var questionsHtml = "<h3>Question " + (i+1) + " / " + state.questions.length + "</h3>" +
     '<p>Your score is: ' + state.score + '</p>' +
-      '<p>' + state.questions[i].questionText + '</p>' +
+      '<p>' + state.questions[i+1].questionText + '</p>' +
       '<ul>' +
-        '<li><input type="radio" name="answer">' + state.questions[i].choices[0] + '</input></li>' +
-        '<li><input type="radio" name="answer">' + state.questions[i].choices[1] + '</input></li>' +
-        '<li><input type="radio" name="answer">' + state.questions[i].choices[2] + '</input></li>' +
-        '<li><input type="radio" name="answer">' + state.questions[i].choices[3] + '</input></li>' +
+        '<li><input type="radio" name="answer">' + state.questions[i+1].choices[0] + '</input></li>' +
+        '<li><input type="radio" name="answer">' + state.questions[i+1].choices[1] + '</input></li>' +
+        '<li><input type="radio" name="answer">' + state.questions[i+1].choices[2] + '</input></li>' +
+        '<li><input type="radio" name="answer">' + state.questions[i+1].choices[3] + '</input></li>' +
       '</ul>' +
       '<button type="submit" class="submitButton">Submit</button>';
   element.html(questionsHtml);
@@ -98,7 +98,7 @@ function questionsTemplate(state, element) {
 
 
 // nextQuestion(quizState);
-// questionsTemplate(quizState, $('.quiz'));
+ questionsTemplate(quizState, $('.quiz'));
 
 
 
@@ -110,8 +110,5 @@ function questionsTemplate(state, element) {
 //   });
 // });
 
-
-
-//
  submitAnswer(quizState, 0);
 // checkAnswer(quizState, 0);
