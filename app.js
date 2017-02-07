@@ -79,10 +79,10 @@ function questionsTemplate(state, element) {
       '<p>' + state.questions[i].questionText + '</p>' +
       '<form>' +
       '<ul>' +
-        '<li><input type="radio" name="answer" id="0">' + state.questions[i].choices[0] + '</input></li>' +
-        '<li><input type="radio" name="answer" id="1">' + state.questions[i].choices[1] + '</input></li>' +
-        '<li><input type="radio" name="answer" id="2">' + state.questions[i].choices[2] + '</input></li>' +
-        '<li><input type="radio" name="answer" id="3">' + state.questions[i].choices[3] + '</input></li>' +
+        '<li><label><input type="radio" name="answer" id="0">' + state.questions[i].choices[0] + '</input></label></li>' +
+        '<li><label><input type="radio" name="answer" id="1">' + state.questions[i].choices[1] + '</input></label></li>' +
+        '<li><label><input type="radio" name="answer" id="2">' + state.questions[i].choices[2] + '</input></label></li>' +
+        '<li><label><input type="radio" name="answer" id="3">' + state.questions[i].choices[3] + '</input></label></li>' +
       '</ul>' +
       '</form>' +
       '<button type="submit" class="submitButton">Submit</button>';
